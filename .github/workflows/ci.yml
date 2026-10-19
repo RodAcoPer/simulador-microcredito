@@ -11,10 +11,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+<<<<<<< HEAD
       - name: Configurar JDK 17
         uses: actions/setup-java@v4
         with:
           java-version: '17'
+=======
+      - name: Configurar JDK 26
+        uses: actions/setup-java@v4
+        with:
+          java-version: '26'
+>>>>>>> c0e770700945b33bafdba7d78e193f8a8d7946a8
           distribution: 'temurin'
           cache: maven
       - name: Compilar y verificar cobertura (JaCoCo)
@@ -24,4 +31,8 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: jacoco-report
+<<<<<<< HEAD
           path: target/site/jacoco/
+=======
+          path: target/site/jacoco/
+>>>>>>> c0e770700945b33bafdba7d78e193f8a8d7946a8

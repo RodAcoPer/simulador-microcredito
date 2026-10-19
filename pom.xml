@@ -33,6 +33,7 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+<<<<<<< HEAD
 
     <build>
         <plugins>
@@ -85,3 +86,11 @@
         </plugins>
     </build>
 </project>
+=======
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.release>17</maven.compiler.release>
+        <exec.mainClass>com.usil.simulador.microcredito.SimuladorMicrocredito</exec.mainClass>
+    </properties>
+</project>
+>>>>>>> c0e770700945b33bafdba7d78e193f8a8d7946a8
