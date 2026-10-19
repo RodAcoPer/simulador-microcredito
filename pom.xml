@@ -5,25 +5,89 @@
     <artifactId>simulador-microcredito</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- CAMBIADO A 17: Requisito del curso y compatible con GitHub Actions -->
+        <maven.compiler.release>17</maven.compiler.release>
+        <exec.mainClass>com.usil.simulador.microcredito.SimuladorMicrocredito</exec.mainClass>
+        <junit.version>5.10.3</junit.version>
+        <jacoco.version>0.8.12</jacoco.version>
+    </properties>
+
     <dependencies>
+        <!-- Dependencia agregada de JUnit 5 (incluye API, Params y Engine para que Maven las ejecute) -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <version>5.10.3</version>
+            <artifactId>junit-jupiter</artifactId>
+            <version>${junit.version}</version>
             <scope>test</scope>
-            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-params</artifactId>
-            <version>5.10.3</version>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.13.0-M3</version>
             <scope>test</scope>
             <type>jar</type>
         </dependency>
     </dependencies>
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.release>26</maven.compiler.release>
-        <exec.mainClass>com.usil.simulador.microcredito.SimuladorMicrocredito</exec.mainClass>
-    </properties>
+
+    <build>
+        <plugins>
+            <!-- Plugin para ejecutar las pruebas de JUnit 5 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.2.5</version>
+            </plugin>
+
+            <!-- Plugin de JaCoCo para medir y validar la cobertura -->
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco.version}</version>
+                <executions>
+                    <!-- Prepara el agente para medir la cobertura al ejecutar las pruebas -->
+                    <execution>
+                        <id>prepare-agent</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+
+                    <!-- Genera el reporte HTML en target/site/jacoco/ -->
+                    <execution>
+                        <id>report</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+
+                    <!-- Rompe el build (falla) si no se alcanza el 95% de ramas -->
+                    <execution>
+                        <id>check</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <rule>
+                                    <element>BUNDLE</element>
+                                    <limits>
+                                        <limit>
+                                            <counter>BRANCH</counter>
+                                            <value>COVEREDRATIO</value>
+                                            <minimum>0.95</minimum>
+                                        </limit>
+                                    </limits>
+                                </rule>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>

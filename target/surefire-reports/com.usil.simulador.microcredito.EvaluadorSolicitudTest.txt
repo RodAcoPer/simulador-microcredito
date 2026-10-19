@@ -1,8 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: com.usil.simulador.microcredito.EvaluadorSolicitudTest
 -------------------------------------------------------------------------------
-Tests run: 8, Failures: 2, Errors: 0, Skipped: 0, Time elapsed: 0.145 s <<< FAILURE! -- in com.usil.simulador.microcredito.EvaluadorSolicitudTest
-com.usil.simulador.microcredito.EvaluadorSolicitudTest.rechazaIngresoNoPositivo(String)[1] -- Time elapsed: 0.039 s <<< FAILURE!
+Tests run: 8, Failures: 2, Errors: 0, Skipped: 0, Time elapsed: 0.116 s <<< FAILURE! -- in com.usil.simulador.microcredito.EvaluadorSolicitudTest
+com.usil.simulador.microcredito.EvaluadorSolicitudTest.rechazaIngresoNoPositivo(String)[1] -- Time elapsed: 0.035 s <<< FAILURE!
 org.opentest4j.AssertionFailedError: Ingreso <= 0 debe lanzar IllegalArgumentException ==> Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown.
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:152)
 	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:73)
@@ -49,7 +49,7 @@ org.opentest4j.AssertionFailedError: Ingreso <= 0 debe lanzar IllegalArgumentExc
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
 
-com.usil.simulador.microcredito.EvaluadorSolicitudTest.rechazaIngresoNoPositivo(String)[2] -- Time elapsed: 0.004 s <<< FAILURE!
+com.usil.simulador.microcredito.EvaluadorSolicitudTest.rechazaIngresoNoPositivo(String)[2] -- Time elapsed: 0.002 s <<< FAILURE!
 org.opentest4j.AssertionFailedError: Ingreso <= 0 debe lanzar IllegalArgumentException ==> Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown.
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:152)
 	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:73)

@@ -2,7 +2,6 @@ package com.usil.simulador.microcredito;
 
 import java.math.BigDecimal;
 
-/* Clasifica una solicitud según la capacidad de pago (HU-02). */
 public class EvaluadorSolicitud {
 
     static final int PUNTAJE_MINIMO = 500;
@@ -16,27 +15,41 @@ public class EvaluadorSolicitud {
     }
 
     public Resultado evaluar(Solicitud solicitud) {
+        // 1. PRIMERO VALIDAMOS LAS REGLAS RN-07 (Esto es lo que faltaba)
         if (solicitud == null) {
             throw new IllegalArgumentException("La solicitud es obligatoria");
         }
+        if (solicitud.getMonto() == null) {
+            throw new IllegalArgumentException("El monto es obligatorio");
+        }
+        if (solicitud.getPlazoMeses() == null) {
+            throw new IllegalArgumentException("El plazo es obligatorio");
+        }
+        if (solicitud.getSegmento() == null) {
+            throw new IllegalArgumentException("El segmento es obligatorio");
+        }
+        if (solicitud.getIngresoMensual() == null || 
+            solicitud.getIngresoMensual().compareTo(BigDecimal.ZERO) <= 0) {
+            throw new IllegalArgumentException("El ingreso mensual debe ser mayor a 0");
+        }
 
+        // 2. Si pasa las validaciones, calculamos la cuota
         BigDecimal cuota = calculadora.calcularCuota(
                 solicitud.getMonto(), 
                 solicitud.getPlazoMeses(), 
                 solicitud.getSegmento()
         );
 
+        // 3. Clasificamos (RN-06)
         return clasificar(cuota, solicitud.getIngresoMensual(), 
                           solicitud.getPuntajeCrediticio(), solicitud.isMoraVigente());
     }
 
     private Resultado clasificar(BigDecimal cuota, BigDecimal ingresoMensual, int puntaje, boolean moraVigente) {
-        
         if (puntaje < PUNTAJE_MINIMO || moraVigente) {
             return Resultado.RECHAZADA;
         }
 
-        // RN-06: Evaluar los umbrales del 40% y 50%
         BigDecimal cuota40 = ingresoMensual.multiply(LIMITE_APROBACION);
         BigDecimal cuota50 = ingresoMensual.multiply(LIMITE_REVISION);
 
