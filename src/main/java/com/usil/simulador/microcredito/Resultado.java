@@ -5,4 +5,3 @@ public enum Resultado {
     REVISION_MANUAL,
     RECHAZADA
 }
-
