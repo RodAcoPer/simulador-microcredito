@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CalculadoraCuota.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">simulador-microcredito</a> &gt; <a href="index.source.html" class="el_package">com.usil.simulador.microcredito</a> &gt; <span class="el_source">CalculadoraCuota.java</span></div><h1>CalculadoraCuota.java</h1><pre class="source lang-java linenums">package com.usil.simulador.microcredito;
+
+import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
+
+<span class="fc" id="L7">public final class CalculadoraCuota {</span>
+
+<span class="fc" id="L9">    private static final MathContext MC = new MathContext(20, RoundingMode.HALF_UP);</span>
+
+    public BigDecimal calcularCuota(BigDecimal monto, int plazo, Segmento segmento) {
+<span class="pc bpc" id="L12" title="2 of 4 branches missed.">        if (monto == null || segmento == null) {</span>
+<span class="nc" id="L13">            throw new IllegalArgumentException(&quot;Monto y segmento no pueden ser nulos&quot;);</span>
+        }
+<span class="fc bfc" id="L15" title="All 2 branches covered.">        if (monto.compareTo(new BigDecimal(&quot;300&quot;)) &lt; 0</span>
+<span class="fc bfc" id="L16" title="All 2 branches covered.">                || monto.compareTo(new BigDecimal(&quot;20000&quot;)) &gt; 0) {</span>
+<span class="fc" id="L17">            throw new IllegalArgumentException(&quot;Monto fuera de rango: &quot; + monto);</span>
+        }
+<span class="fc bfc" id="L19" title="All 4 branches covered.">        if (plazo &lt; 6 || plazo &gt; 36) {</span>
+<span class="fc" id="L20">            throw new IllegalArgumentException(&quot;Plazo fuera de rango: &quot; + plazo);</span>
+        }
+<span class="fc" id="L22">        BigDecimal tasa = tasaAplicada(plazo, segmento);</span>
+<span class="fc" id="L23">        return cuotaFrancesa(monto, tasa, plazo);</span>
+    }
+
+    public BigDecimal tasaAplicada(int plazo, Segmento segmento) {
+<span class="pc bpc" id="L27" title="1 of 2 branches missed.">        if (segmento == null) throw new IllegalArgumentException(&quot;Segmento nulo&quot;);</span>
+<span class="pc bpc" id="L28" title="2 of 4 branches missed.">        if (plazo &lt; 6 || plazo &gt; 36) throw new IllegalArgumentException(&quot;Plazo fuera de rango&quot;);</span>
+<span class="fc" id="L29">        BigDecimal tasa = segmento.tasaBase();</span>
+<span class="fc bfc" id="L30" title="All 2 branches covered.">        if (plazo &gt; 24) {</span>
+<span class="fc" id="L31">            tasa = tasa.add(new BigDecimal(&quot;0.002&quot;));</span>
+        }
+<span class="fc" id="L33">        return tasa;</span>
+    }
+
+    private BigDecimal cuotaFrancesa(BigDecimal monto, BigDecimal tasa, int n) {
+<span class="fc" id="L37">        BigDecimal uno = BigDecimal.ONE;</span>
+<span class="fc" id="L38">        BigDecimal factor = uno.add(tasa).pow(-n, MC); // (1+i)^-n</span>
+<span class="fc" id="L39">        BigDecimal denominador = uno.subtract(factor);</span>
+<span class="fc" id="L40">        return monto.multiply(tasa)</span>
+<span class="fc" id="L41">                .divide(denominador, 10, RoundingMode.HALF_UP)</span>
+<span class="fc" id="L42">                .setScale(2, RoundingMode.HALF_UP);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.15.202606040825</span></div></body></html>

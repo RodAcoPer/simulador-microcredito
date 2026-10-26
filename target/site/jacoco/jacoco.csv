@@ -1,0 +1,6 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+simulador-microcredito,com.usil.simulador.microcredito,EvaluadorSolicitud,20,80,5,15,0,19,5,7,0,2
+simulador-microcredito,com.usil.simulador.microcredito,CalculadoraCuota,15,106,5,15,1,22,5,10,0,5
+simulador-microcredito,com.usil.simulador.microcredito,Resultado,0,21,0,0,0,4,0,1,0,1
+simulador-microcredito,com.usil.simulador.microcredito,Solicitud,0,39,0,0,0,14,0,7,0,7
+simulador-microcredito,com.usil.simulador.microcredito,Segmento,0,44,0,0,0,6,0,3,0,3
